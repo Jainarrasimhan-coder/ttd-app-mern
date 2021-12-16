@@ -121,19 +121,18 @@ app.delete('/api/orders/:id', async(req, res) => {
     const order = await Order.findByIdAndDelete(req.params.id);
     res.send(order);
 });
-
-
-const __dirname = path.resolve();
-
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
-
-app.use(express.static(path.join(__dirname, '/frontend/build')));
-
-app.get('*', (req, res) =>
-    res.sendFile(path.join(__dirname, '/frontend/build/index.html'))
-);
 const port = process.env.PORT || 5000;
 
+const _dirname = path.resolve();
+
+app.use('/uploads', express.static(path.join(_dirname, '/uploads')));
+
+app.use(express.static(path.join(_dirname, '/client/build')));
+
+app.get('*', (req, res) =>
+    res.sendFile(path.join(_dirname, '/client/build/index.html'))
+);
+
 app.listen(port, () => {
-    console.log("port running at 5000")
+    console.log(`port running at {$port}`)
 })
